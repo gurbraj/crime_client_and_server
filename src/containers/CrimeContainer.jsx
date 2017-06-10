@@ -13,7 +13,8 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
   return ({
-    data: state.data.data
+    data: state.data.data,
+    loading: state.data.loading
   })
 }
 
@@ -24,6 +25,7 @@ class CrimeContainer extends React.Component {
   render() {
     return (
       <div>
+      {this.props.loading? "LOADING" : ""}
       this is the crime container biatch!
       <button onClick={() => this.props.fetchData("sds")}>load some data</button>
       {JSON.stringify(this.props.data)}

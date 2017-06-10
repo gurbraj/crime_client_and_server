@@ -14,15 +14,15 @@ function fetchData(url) {
     const fakeurl = "https://jsonplaceholder.typicode.com/posts"
     fetch(fakeurl)
       .then( (response) => {
-        dispatch(loadingData(false))
+        setTimeout(() => dispatch(loadingData(false)), 2000 )
+        //imitate lag
+
         //assume i got it back
         return response;
       })
       .then((response) => response.json())
       .then((data) => dispatch(fetchedData(data)) )
-
   }
-
 }
 
 function fetchedData(data) {
@@ -30,7 +30,6 @@ function fetchedData(data) {
     type: "FETCHED_DATA",
     data: data
   }
-
 }
 
 export default {
