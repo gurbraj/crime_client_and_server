@@ -14,7 +14,7 @@ const App = () => (
       <header>
       </header>
       <main>
-        <Route exact path="/crime" component={CrimeContainer} />
+        <Route exact path="/" component={CrimeContainer} />
       </main>
     </div>
   </MuiThemeProvider>
