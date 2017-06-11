@@ -11,6 +11,7 @@ app.set('port', (process.env.PORT || 4000))
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('crime_front_end/build'));
+  console.log("wassa")
 }
 
 
