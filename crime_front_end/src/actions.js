@@ -11,7 +11,7 @@ function loadingData(boolean) {
 function fetchData(url) {
   return (dispatch) => {
     dispatch(loadingData(true));
-    const fakeurl = "https://surrey-crime.herokuapp.com/testing"
+    const fakeurl = "http://localhost:4000/testing"
     //note this is url to the API
     fetch(fakeurl)
       .then( (response) => {

@@ -26,7 +26,7 @@ class CrimeContainer extends React.Component {
     return (
       <div>
       {this.props.loading? "LOADING" : ""}
-      this is the crime container biatch!
+      this is the crime container!
       <button onClick={() => this.props.fetchData("sds")}>load some data</button>
       {JSON.stringify(this.props.data)}
       </div>
