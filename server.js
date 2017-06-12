@@ -54,9 +54,25 @@ app.get("/testing", function (req, res) {
 app.get("/crime", function (req, res) {
   res.set('Content-Type', 'application/json');
 
+  crimelocation = new CrimeLocation({hundred_block:"wassa",hundred_block_geocoded: [1,2]})
+
+  crimelocation.crimes.push({
+    "date": "2017-06-12T04:29:16.000Z",
+    "baeb": 0,
+    "baer": 0,
+    "shoplifting": 0,
+    "tfmv": 1,
+    "tomv": 0,
+    "total_crime": 1,
+  })
+  crimelocation.save(function (err) {
+  if (!err) console.log('Success!');
+});
+
+
   CrimeLocation.find(function (err, crimelocations) {
   if (err) return console.error(err);
-  
+
   res.json({message : crimelocations})
 })
 

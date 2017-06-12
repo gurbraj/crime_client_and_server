@@ -1,23 +1,38 @@
 var mongoose     = require('mongoose');
 var Schema       = mongoose.Schema;
 
-// var CrimeLocationSchema   = new Schema({
-//     location: String,
-//     shoplifting: Number
-//
-// });
+//one crimelocation has many crimes
 
-var CrimeLocationSchema   = new Schema({
-  hundred_block: String,
+
+
+var CrimesSchema = new Schema({
   date: Date ,
   "baeb": Number,
   "baer": Number,
  "shoplifting": Number,
  "tfmv": Number,
  "tomv": Number,
- "hundred_block_geocoded": Array,
  "total_crime": Number
 });
+
+
+var CrimeLocationSchema   = new Schema({
+  hundred_block: String,
+ "hundred_block_geocoded": Array,
+ "crimes": [CrimesSchema]
+});
+
+// var CrimeLocationSchema   = new Schema({
+//   hundred_block: String,
+//   date: Date ,
+//   "baeb": Number,
+//   "baer": Number,
+//  "shoplifting": Number,
+//  "tfmv": Number,
+//  "tomv": Number,
+//  "hundred_block_geocoded": Array,
+//  "total_crime": Number
+// });
 
 
 

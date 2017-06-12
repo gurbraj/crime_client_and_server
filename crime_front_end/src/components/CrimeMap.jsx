@@ -18,7 +18,9 @@ class CrimeMap extends React.Component {
               type="symbol"
               id="marker"
               layout={{ "icon-image": "marker-15" }}>
-              <Feature coordinates={[-122.801094, 49.104430]}/>
+              <Feature coordinates={-121.7351905, 49.0040368} key="10"/>
+              <Feature coordinates={[-122.7452849, 52.913051]} key="22"/>
+              <Feature coordinates={[-122.7452849, 51.913051]} key="3"/>
             </Layer>
         </ReactMapboxGl>
       </div>
