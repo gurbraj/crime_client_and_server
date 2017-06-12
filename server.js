@@ -36,14 +36,6 @@ var CrimeLocation = require('./models/crimelocation');
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   console.log('mongoose up and running')
-
-
-  var crimelocation = new CrimeLocation({location: "here", "shoplifting": 1})
-
-  crimelocation.save(function (err, crimelocation) {
-  if (err) return console.error(err);
-  console.log('saved crime locations: ' + crimelocation)
-});
 });
 //
 
@@ -64,7 +56,7 @@ app.get("/crime", function (req, res) {
 
   CrimeLocation.find(function (err, crimelocations) {
   if (err) return console.error(err);
-  console.log(crimelocations);
+  
   res.json({message : crimelocations})
 })
 

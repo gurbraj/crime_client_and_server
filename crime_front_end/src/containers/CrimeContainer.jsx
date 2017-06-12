@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import Actions from "../actions";
+import CrimeMap from "../components/CrimeMap"
 
 function mapDispatchToProps(dispatch) {
   return ({
@@ -29,6 +30,7 @@ class CrimeContainer extends React.Component {
       this is the crime container!
       <button onClick={() => this.props.fetchData("sds")}>load some data</button>
       {JSON.stringify(this.props.data)}
+      <CrimeMap/>
       </div>
     )
   }
