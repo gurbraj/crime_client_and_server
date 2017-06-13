@@ -5,8 +5,8 @@ import CrimeMap from "../components/CrimeMap"
 
 function mapDispatchToProps(dispatch) {
   return ({
-    fetchData() {
-      dispatch(Actions.fetchData())
+    fetchData(url) {
+      dispatch(Actions.fetchData(url))
     }
 
   })
@@ -21,7 +21,7 @@ function mapStateToProps(state) {
 
 class CrimeContainer extends React.Component {
   componentDidMount() {
-    this.props.fetchData("sdsds")
+    this.props.fetchData("http://localhost:4000/crime")
   }
   render() {
     return (

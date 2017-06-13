@@ -11,9 +11,9 @@ function loadingData(boolean) {
 function fetchData(url) {
   return (dispatch) => {
     dispatch(loadingData(true));
-    const fakeurl = "http://localhost:4000/testing"
+    //const fakeurl = "http://localhost:4000/crime"
     //note this is url to the API
-    fetch(fakeurl)
+    fetch(url)
       .then( (response) => {
         setTimeout(() => dispatch(loadingData(false)), 2000 )
         //imitate lag

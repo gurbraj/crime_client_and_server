@@ -3,10 +3,8 @@ var Schema       = mongoose.Schema;
 
 //one crimelocation has many crimes
 
-
-
 var CrimesSchema = new Schema({
-  date: Date ,
+  "date": Date ,
   "baeb": Number,
   "baer": Number,
  "shoplifting": Number,
@@ -17,22 +15,10 @@ var CrimesSchema = new Schema({
 
 
 var CrimeLocationSchema   = new Schema({
-  hundred_block: String,
+  "hundred_block": String,
  "hundred_block_geocoded": Array,
  "crimes": [CrimesSchema]
 });
-
-// var CrimeLocationSchema   = new Schema({
-//   hundred_block: String,
-//   date: Date ,
-//   "baeb": Number,
-//   "baer": Number,
-//  "shoplifting": Number,
-//  "tfmv": Number,
-//  "tomv": Number,
-//  "hundred_block_geocoded": Array,
-//  "total_crime": Number
-// });
 
 
 
