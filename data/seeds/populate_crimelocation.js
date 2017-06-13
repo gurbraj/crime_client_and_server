@@ -2,6 +2,7 @@
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/db');
 var db = mongoose.connection;
+var GeoJSON = require('geojson');
 
 var CrimeLocation = require('../../models/crimelocation');
 
@@ -44,6 +45,10 @@ var read = fs.createReadStream('./crimelocations.csv'),
           crimeLocationHash ={
             hundred_block: hundred_block_new ,
             "hundred_block_geocoded": eval(row[9]) ,
+            "geometry": {
+              type: "Point",
+              coordinates: eval(row[9]) 
+            }
           }
           crimelocation = new CrimeLocation(crimeLocationHash)
         }

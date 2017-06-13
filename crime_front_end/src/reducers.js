@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux'
 
-function data(state = {data: "wasa" }, action) {
+//hydrate state?!
+
+function data(state = {}, action) {
   switch (action.type) {
     case "FETCHED_DATA":
       return {...state, data: action.data};

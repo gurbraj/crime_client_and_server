@@ -59,7 +59,7 @@ app.get("/crime", function (req, res) {
 
 
 
-  res.json({crimelocations : crimelocations})
+  res.json({crimelocations : crimelocations })
 })
 
 })
@@ -76,8 +76,8 @@ app.get("/crime_aggregated", function (req, res) {
   crimelocations.forEach((crimelocation) =>{
     var hundred_block = crimelocation.hundred_block
     var hundred_block_geocoded = crimelocation.hundred_block_geocoded
-
-    aggregatedHash = {hundred_block: hundred_block, hundred_block_geocoded: hundred_block_geocoded, crime:{baeb:0, baer:0, shoplifting:0, tfmv:0, tomv:0,total_crime:0} }
+    var geometry = crimelocation.geometry
+    aggregatedHash = {hundred_block: hundred_block, hundred_block_geocoded: hundred_block_geocoded, geometry: geometry , crime:{baeb:0, baer:0, shoplifting:0, tfmv:0, tomv:0,total_crime:0} }
 
     crimelocation.crimes.forEach((crime) => {
 
