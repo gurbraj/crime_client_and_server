@@ -1,8 +1,11 @@
 // ES6
 import ReactMapboxGl, { Layer, Feature } from "react-mapbox-gl";
 import React from "react";
-
 import { Marker, Cluster } from "react-mapbox-gl";
+import config from "../config.json";
+
+const { accessToken} = config;
+
 
 const styles = {
   clusterMarker: {
@@ -53,7 +56,7 @@ class CrimeMap extends React.Component {
     <div>
       <ReactMapboxGl
         style="mapbox://styles/mapbox/streets-v8"
-        accessToken="pk.eyJ1IjoiZ25ha2duYWsiLCJhIjoiY2ozdHJpbHQ0MDA4NTJ4bnhueDZpd3VyYyJ9.4lw0GwmoOy0REgXQvZLodA"
+        accessToken={accessToken}
         center= {[-122.801094, 49.10443]}
         containerStyle={{
           height: "100vh",
