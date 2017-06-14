@@ -1,5 +1,5 @@
 import 'whatwg-fetch';
-
+//deal with datafatching
 function loadingData(boolean) {
   return {
     type: "LOADING_DATA",
@@ -7,12 +7,10 @@ function loadingData(boolean) {
   }
 
 }
-
 function fetchData(url) {
   return (dispatch) => {
     dispatch(loadingData(true));
-    //const fakeurl = "http://localhost:4000/crime"
-    //note this is url to the API
+
     fetch(url)
       .then( (response) => {
         setTimeout(() => dispatch(loadingData(false)), 2000 )
@@ -32,10 +30,21 @@ function fetchedData(data) {
     data: data
   }
 }
+//end deal with datafetching
+
+function handleCrimeOptionsType(event, index, type) {
+  return {
+    type: "TYPE",
+    crimetype: type
+  }
+}
+
+
 
 export default {
   fetchData,
   fetchedData,
-  loadingData
+  loadingData,
+  handleCrimeOptionsType
 
 }

@@ -36,10 +36,10 @@ var read = fs.createReadStream('./crimelocations.csv'),
         if (hundred_block_new !== hundred_block_old) {
           //if they are not the same, save the previous one
 
-          console.log(crimelocation)
+          
           crimelocation.save(function (err, crimelocation) {
             if (err) return console.error(err);
-            console.log('saved crime locations: ' + crimelocation)
+            //console.log('saved crime locations: ' + crimelocation)
           });
           //and initialize new crimelocation with hundred_block_new
           crimeLocationHash ={
@@ -47,7 +47,7 @@ var read = fs.createReadStream('./crimelocations.csv'),
             "hundred_block_geocoded": eval(row[9]) ,
             "geometry": {
               type: "Point",
-              coordinates: eval(row[9]) 
+              coordinates: eval(row[9])
             }
           }
           crimelocation = new CrimeLocation(crimeLocationHash)
@@ -69,8 +69,10 @@ var read = fs.createReadStream('./crimelocations.csv'),
         hundred_block_old = hundred_block_new
 
       }
-
+      console.log(row_index)
       row_index+=1;
+
+      cb()
     });
 
 read

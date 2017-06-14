@@ -13,7 +13,36 @@ function data(state = {}, action) {
   }
 }
 
+function crimeoptions(state={crimetype: "Total Crime", time: "All Years"}, action) {
+  switch (action.type) {
+    case "TYPE":
+      return {...state, crimetype: action.crimetype}
+    case "TIME":
+      return {...state, crimetime: action.crimetime}
+    default:
+      return state
+
+  }
+}
+
 
 export default combineReducers({
-  data
+  data,
+  crimeoptions
 })
+
+//selectors goes here
+export function getVisibleData(data, filter) {
+  //can do it differently so instead of data, it gets passed state...
+  //think this only should be passed the TIME filter ing
+  switch (filter) {
+    case "Total Crime":
+      return data
+    case "Shoplifting":
+
+      return data
+    default:
+      return data
+
+  }
+}

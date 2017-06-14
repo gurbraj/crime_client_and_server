@@ -1,11 +1,10 @@
 import React from 'react';
 import { Route, Link } from 'react-router-dom'
-
+import injectTapEventPlugin from "react-tap-event-plugin";
 import CrimeContainer from "../CrimeContainer"
-
 import CustomAppBar from "../CustomAppBar"
-
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+injectTapEventPlugin();
 
 const App = () => (
   <MuiThemeProvider>

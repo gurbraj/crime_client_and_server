@@ -39,7 +39,6 @@ class CrimeMap extends React.Component {
  }
 
  clusterMarker = (coordinates, pointCount) => {
-   debugger;
    return(
    <Marker coordinates={coordinates} key={coordinates.toString()} style={styles.clusterMarker}>
      { pointCount }
@@ -47,10 +46,27 @@ class CrimeMap extends React.Component {
   )
 
  };
+ getVisibleCrime = (crime, crimetype) => {
+   switch (crimetype) {
+    case "Total Crime":
+      return crime.total_crime
+    case "Break and Enter - Business":
+      return crime.baeb
+    case "Break and Enter - Residence":
+      return crime.baer
+    case "Shoplifting":
+      return crime.shoplifting
+    case "Theft from Motor Vehicle":
+      return crime.tfmv
+    case "Theft of Motor Vehicle":
+      return crime.tomv
+
+   }
+ }
   render() {
-    var { crimelocations } = this.props
-    var crimelocations = crimelocations.slice(1,crimelocations.length-1)
-    console.log(crimelocations)
+    var { crimelocations, crimetype } = this.props
+    var crimelocations = crimelocations.slice(1,100)
+    debugger;
     return (
 
     <div>
@@ -59,8 +75,8 @@ class CrimeMap extends React.Component {
         accessToken={accessToken}
         center= {[-122.801094, 49.10443]}
         containerStyle={{
-          height: "100vh",
-          width: "100vw"
+          height: "80vh",
+          width: "80vw"
         }}>
         <Cluster ClusterMarkerFactory={this.clusterMarker} clusterThreshold={8}>
 
@@ -73,7 +89,7 @@ class CrimeMap extends React.Component {
             coordinates={crimelocation.geometry.coordinates}
             onClick={this.onMarkerClick.bind(this, crimelocation.geometry.coordinates)}
           >
-            {crimelocation.crime.total_crime}
+            {this.getVisibleCrime(crimelocation.crime, crimetype)}
           </Marker>
           )
         })
