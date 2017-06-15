@@ -1,6 +1,6 @@
 //mongodb server needs to be up and running
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/db');
+mongoose.connect("mongodb://gnak:hejsan@ds127982.mlab.com:27982/heroku_j0kd36jk");
 var db = mongoose.connection;
 var GeoJSON = require('geojson');
 

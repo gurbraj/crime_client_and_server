@@ -80,7 +80,7 @@ class CrimeContainer extends React.Component {
       <div>
         <div>
         <CrimeOptions crimetype={crimetype} handleCrimeOptionsType={handleCrimeOptionsType} handleCrimeOptionsTime={handleCrimeOptionsTime} crimetime={crimetime} />
-        { true && <CrimeMap crimelocations={crimelocationsAggregated} crimetype={crimetype}/> }
+        { false && <CrimeMap crimelocations={crimelocationsAggregated} crimetype={crimetype}/> }
         </div>
 
         {this.props.loading &&

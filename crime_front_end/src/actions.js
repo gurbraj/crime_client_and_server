@@ -6,14 +6,19 @@ function loadingData(boolean) {
     loading: boolean
   }
 
+
 }
 function fetchData(url) {
   return (dispatch) => {
     dispatch(loadingData(true));
-
+    let url = "https://surrey-crime-spots.herokuapp.com/crime"
     fetch(url)
       .then( (response) => {
         setTimeout(() => dispatch(loadingData(false)), 2000 )
+
+        if (!response.ok) {
+          
+        }
         //imitate lag
 
         //assume i got it back

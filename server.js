@@ -1,3 +1,4 @@
+var path = require("path")
 var express = require("express")
 var app = express()
 
@@ -15,20 +16,26 @@ var MongoClient = require('mongodb').MongoClient
   , assert = require('assert');
 
 // Connection URL
-var url = 'mongodb://localhost:27017/db';
-
-// Use connect method to connect to the server
-MongoClient.connect(url, function(err, db) {
-  assert.equal(null, err);
-  console.log("Connected successfully to mongodb server");
-
-  db.close();
-});
+// var url = 'mongodb://localhost:27017/db';
+//
+// // Use connect method to connect to the server
+// MongoClient.connect(url, function(err, db) {
+//   assert.equal(null, err);
+//   console.log("Connected successfully to mongodb server");
+//
+//   db.close();
+// });
 //end mongodb stuff
 //mongoose stuff
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/db');
+
+if (process.env.NODE_ENV === 'production') {
+  mongoose.connect("mongodb://gnak:hejsan@ds127982.mlab.com:27982/heroku_j0kd36jk")
+} else {
+  mongoose.connect('mongodb://localhost:27017/db');
+}
+
 var db = mongoose.connection;
 
 var CrimeLocation = require('./models/crimelocation');
@@ -41,8 +48,15 @@ db.once('open', function() {
 
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('crime_front_end/build'));
   console.log("wassa")
+  //app.use(express.static(path.join(__dirname, 'crime_front_end/build')));
+  app.use(express.static('crime_front_end/build'));
+//   app.get('/react', function(req, res) {
+//
+//   //res.sendFile(path.join(__dirname, 'crime_front_end/build'));
+// });
+
+
 }
 
 
@@ -59,7 +73,7 @@ app.get("/crime", function (req, res) {
 
 
 
-  res.json({crimelocations : crimelocations })
+  res.json({crimelocations : crimelocations.slice(1,100)})
 })
 
 })
@@ -94,7 +108,7 @@ app.get("/crime_aggregated", function (req, res) {
   // });
   // end aggregateCrime
 
-  res.json({crimelocations : crimelocations})
+  res.json({crimelocations : crimelocations.slice(1,100)})
 })
 
 })
