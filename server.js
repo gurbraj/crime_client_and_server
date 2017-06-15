@@ -59,7 +59,7 @@ app.get("/crime", function (req, res) {
 
 
 
-  res.json({crimelocations : crimelocations })
+  res.json({crimelocations : crimelocations})
 })
 
 })
