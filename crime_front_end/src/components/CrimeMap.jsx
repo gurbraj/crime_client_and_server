@@ -4,7 +4,7 @@ import React from "react";
 import { Marker, Cluster } from "react-mapbox-gl";
 import config from "../config.json";
 
-const { accessToken} = config;
+const { accessToken } = config;
 
 
 const styles = {
@@ -21,8 +21,8 @@ const styles = {
     pointerEvents: 'none'
   },
   marker: {
-    width: 30,
-    height: 30,
+    width: 10,
+    height: 10,
     borderRadius: '50%',
     backgroundColor: '#E0E0E0',
     display: 'flex',
@@ -45,28 +45,54 @@ class CrimeMap extends React.Component {
    </Marker>
   )
 
- };
+ }
  getVisibleCrime = (crime, crimetype) => {
+
+   const markerStyle =  {
+       width: 10,
+       height: 10,
+       borderRadius: '50%',
+       backgroundColor: '#E0E0E0',
+       display: 'flex',
+       justifyContent: 'center',
+       alignItems: 'center',
+       border: '2px solid #C9C9C9',
+       pointerEvents: 'none'
+     }
+
+   const markerConfig = {crimevolume: "", markerstyle: markerStyle }
+
+
    switch (crimetype) {
     case "Total Crime":
-      return crime.total_crime
+      //return crime.total_crime
+      markerConfig.crimevolume = crime.total_crime
+      markerConfig.markerstyle.backgroundColor = 'black'
+      break;
     case "Break and Enter - Business":
-      return crime.baeb
-    case "Break and Enter - Residence":
-      return crime.baer
-    case "Shoplifting":
-      return crime.shoplifting
-    case "Theft from Motor Vehicle":
-      return crime.tfmv
-    case "Theft of Motor Vehicle":
-      return crime.tomv
 
+      //return crime.baeb
+      markerConfig.crimevolume = crime.baeb
+      markerConfig.markerstyle.backgroundColor = 'red'
+      markerConfig.markerstyle.width = 3 * crime.baeb
+      markerConfig.markerstyle.height = 3 * crime.baeb
+
+      break;
+    case "Break and Enter - Residence":
+      //return crime.baer
+    case "Shoplifting":
+      //return crime.shoplifting
+    case "Theft from Motor Vehicle":
+      //return crime.tfmv
+    case "Theft of Motor Vehicle":
+      //return crime.tomv
    }
+   return markerConfig
  }
   render() {
     var { crimelocations, crimetype } = this.props
-    var crimelocations = crimelocations.slice(1,100)
-    debugger;
+    var crimelocations = crimelocations.slice(1, 10000)
+
     return (
 
     <div>
@@ -76,22 +102,34 @@ class CrimeMap extends React.Component {
         center= {[-122.801094, 49.10443]}
         containerStyle={{
           height: "80vh",
-          width: "80vw"
+          width: "100vw"
         }}>
         <Cluster ClusterMarkerFactory={this.clusterMarker} clusterThreshold={8}>
 
         {
         crimelocations.map((crimelocation, key) => {
-          return (
-          <Marker
-            key={key}
-            style={styles.marker}
-            coordinates={crimelocation.geometry.coordinates}
-            onClick={this.onMarkerClick.bind(this, crimelocation.geometry.coordinates)}
-          >
-            {this.getVisibleCrime(crimelocation.crime, crimetype)}
-          </Marker>
-          )
+          let markerConfig = this.getVisibleCrime(crimelocation.crime, crimetype)
+
+          let crimevolume = markerConfig.crimevolume
+          let markerStyle = markerConfig.markerstyle
+
+          // let crimevolume = this.getVisibleCrime(crimelocation.crime, crimetype)
+          if (crimevolume > 1) {
+
+            return (
+            <Marker
+              key={key}
+              style={markerStyle}
+              coordinates={crimelocation.geometry.coordinates}
+              onClick={this.onMarkerClick.bind(this, crimelocation.geometry.coordinates)}
+            >
+              {crimevolume}
+            </Marker>
+            )
+          } else {
+            return ""
+          }
+
         })
         }
 

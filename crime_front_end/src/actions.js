@@ -38,6 +38,12 @@ function handleCrimeOptionsType(event, index, type) {
     crimetype: type
   }
 }
+function handleCrimeOptionsTime(event, index, time) {
+  return {
+    type: "TIME",
+    crimetime: time
+  }
+}
 
 
 
@@ -45,6 +51,7 @@ export default {
   fetchData,
   fetchedData,
   loadingData,
-  handleCrimeOptionsType
+  handleCrimeOptionsType,
+  handleCrimeOptionsTime
 
 }

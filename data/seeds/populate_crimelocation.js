@@ -36,7 +36,7 @@ var read = fs.createReadStream('./crimelocations.csv'),
         if (hundred_block_new !== hundred_block_old) {
           //if they are not the same, save the previous one
 
-          
+
           crimelocation.save(function (err, crimelocation) {
             if (err) return console.error(err);
             //console.log('saved crime locations: ' + crimelocation)
@@ -55,7 +55,7 @@ var read = fs.createReadStream('./crimelocations.csv'),
 
         //create crimeshash and push it to crimelocation
         crimesHash = {
-          date: Date(row[2], row[3]),
+          date: new Date(row[2], row[3]),
           "baeb": Number(row[4]) ,
           "baer": Number(row[5]),
           "shoplifting": Number(row[6]) ,

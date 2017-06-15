@@ -63,7 +63,7 @@ app.get("/crime", function (req, res) {
 })
 
 })
-
+//renamge this endpoint later
 app.get("/crime_aggregated", function (req, res) {
   res.set('Content-Type', 'application/json');
 
@@ -71,29 +71,30 @@ app.get("/crime_aggregated", function (req, res) {
   if (err) return console.error(err);
 
   //this is the function that takes crimelocations, and returns aggregated crimes.
-  dataArr = []
+  // dataArr = []
+  //
+  // crimelocations.forEach((crimelocation) =>{
+  //   var hundred_block = crimelocation.hundred_block
+  //   var hundred_block_geocoded = crimelocation.hundred_block_geocoded
+  //   var geometry = crimelocation.geometry
+  //   aggregatedHash = {hundred_block: hundred_block, hundred_block_geocoded: hundred_block_geocoded, geometry: geometry , crime:{baeb:0, baer:0, shoplifting:0, tfmv:0, tomv:0,total_crime:0} }
+  //
+  //   crimelocation.crimes.forEach((crime) => {
+  //
+  //     aggregatedHash.crime.baeb += crime.baeb
+  //     aggregatedHash.crime.baer += crime.baer
+  //     aggregatedHash.crime.shoplifting += crime.shoplifting
+  //     aggregatedHash.crime.tfmv += crime.tfmv
+  //     aggregatedHash.crime.tomv += crime.tomv
+  //     aggregatedHash.crime.total_crime += crime['total_crime']
+  //
+  //
+  //   })
+  //   dataArr.push(aggregatedHash)
+  // });
+  // end aggregateCrime
 
-  crimelocations.forEach((crimelocation) =>{
-    var hundred_block = crimelocation.hundred_block
-    var hundred_block_geocoded = crimelocation.hundred_block_geocoded
-    var geometry = crimelocation.geometry
-    aggregatedHash = {hundred_block: hundred_block, hundred_block_geocoded: hundred_block_geocoded, geometry: geometry , crime:{baeb:0, baer:0, shoplifting:0, tfmv:0, tomv:0,total_crime:0} }
-
-    crimelocation.crimes.forEach((crime) => {
-
-      aggregatedHash.crime.baeb += crime.baeb
-      aggregatedHash.crime.baer += crime.baer
-      aggregatedHash.crime.shoplifting += crime.shoplifting
-      aggregatedHash.crime.tfmv += crime.tfmv
-      aggregatedHash.crime.tomv += crime.tomv
-      aggregatedHash.crime.total_crime += crime['total_crime']
-
-
-    })
-    dataArr.push(aggregatedHash)
-  });
-
-  res.json({crimelocations_aggregated : dataArr})
+  res.json({crimelocations : crimelocations})
 })
 
 })

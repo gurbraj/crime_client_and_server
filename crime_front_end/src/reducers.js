@@ -13,7 +13,7 @@ function data(state = {}, action) {
   }
 }
 
-function crimeoptions(state={crimetype: "Total Crime", time: "All Years"}, action) {
+function crimeoptions(state={crimetype: "Total Crime", crimetime: "All Years"}, action) {
   switch (action.type) {
     case "TYPE":
       return {...state, crimetype: action.crimetype}
@@ -35,14 +35,32 @@ export default combineReducers({
 export function getVisibleData(data, filter) {
   //can do it differently so instead of data, it gets passed state...
   //think this only should be passed the TIME filter ing
-  switch (filter) {
-    case "Total Crime":
-      return data
-    case "Shoplifting":
 
-      return data
-    default:
-      return data
+  if (data && filter!=="All Years") {
 
+    let filteredData = {crimelocations: [] }
+    
+    data.crimelocations.forEach( (crimelocation)=> {
+      let hundred_block = crimelocation.hundred_block
+      let hundred_block_geocoded = crimelocation.hundred_block_geocoded
+      let geometry = crimelocation.geometry
+
+
+      let crimesFiltered = crimelocation.crimes.filter((crime) => {
+          let date = new Date(crime.date)
+          let year = date.getFullYear().toString()
+          return year === filter
+        })
+
+      let crimelocationHash = {hundred_block: hundred_block, hundred_block_geocoded: hundred_block_geocoded, geometry: geometry , crimes: crimesFiltered }
+
+      filteredData.crimelocations.push(crimelocationHash)
+    })
+
+    return filteredData
+
+  }  else {
+    return data
   }
+
 }

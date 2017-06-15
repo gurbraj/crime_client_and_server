@@ -4,7 +4,7 @@ import React from "react";
 
 class CrimeOptions extends React.Component {
   render() {
-    const { crimetype, handleCrimeOptionsType } = this.props;
+    const { crimetype, handleCrimeOptionsType, crimetime ,handleCrimeOptionsTime } = this.props;
 
     return(
       <div>
@@ -16,6 +16,19 @@ class CrimeOptions extends React.Component {
           <MenuItem value={"Theft from Motor Vehicle"} primaryText="Theft from Motor Vehicle" />
           <MenuItem value={"Theft of Motor Vehicle"} primaryText="Theft of Motor Vehicle" />
         </DropDownMenu>
+        <br/>
+
+        <DropDownMenu value={crimetime} onChange={handleCrimeOptionsTime} >
+          <MenuItem value={"All Years"} primaryText="All Years" />
+          <MenuItem value={"2011"} primaryText="2011" />
+          <MenuItem value={"2012"} primaryText="2012" />
+          <MenuItem value={"2013"} primaryText="2013" />
+          <MenuItem value={"2014"} primaryText="2014" />
+          <MenuItem value={"2015"} primaryText="2015" />
+          <MenuItem value={"2016"} primaryText="2016" />
+
+        </DropDownMenu>
+
 
       </div>
     );
