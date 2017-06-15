@@ -11,33 +11,33 @@ app.set('port', (process.env.PORT || 4000))
 
 
 //mongodb stuff
-var MongoClient = require('mongodb').MongoClient
-  , assert = require('assert');
-
-// Connection URL
-var url = 'mongodb://localhost:27017/db';
-
-// Use connect method to connect to the server
-MongoClient.connect(url, function(err, db) {
-  assert.equal(null, err);
-  console.log("Connected successfully to mongodb server");
-
-  db.close();
-});
+// var MongoClient = require('mongodb').MongoClient
+//   , assert = require('assert');
+//
+// // Connection URL
+// var url = 'mongodb://localhost:27017/db';
+//
+// // Use connect method to connect to the server
+// MongoClient.connect(url, function(err, db) {
+//   assert.equal(null, err);
+//   console.log("Connected successfully to mongodb server");
+//
+//   db.close();
+// });
 //end mongodb stuff
 //mongoose stuff
 
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/db');
-var db = mongoose.connection;
-
-var CrimeLocation = require('./models/crimelocation');
-
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  console.log('mongoose up and running')
-});
+// var mongoose = require('mongoose');
+// mongoose.connect('mongodb://localhost:27017/db');
+// var db = mongoose.connection;
 //
+// var CrimeLocation = require('./models/crimelocation');
+//
+// db.on('error', console.error.bind(console, 'connection error:'));
+// db.once('open', function() {
+//   console.log('mongoose up and running')
+// });
+// //
 
 
 if (process.env.NODE_ENV === 'production') {
@@ -45,30 +45,30 @@ if (process.env.NODE_ENV === 'production') {
   console.log("wassa")
 }
 
-
-app.get("/testing", function (req, res) {
-  res.set('Content-Type', 'application/json');
-  res.json({message :"tis comes from the node server"})
-})
-
-app.get("/crime", function (req, res) {
-  res.set('Content-Type', 'application/json');
-
-  CrimeLocation.find(function (err, crimelocations) {
-  if (err) return console.error(err);
-
-
-
-  res.json({crimelocations : crimelocations})
-})
-
-})
-//renamge this endpoint later
-app.get("/crime_aggregated", function (req, res) {
-  res.set('Content-Type', 'application/json');
-
-  CrimeLocation.find(function (err, crimelocations) {
-  if (err) return console.error(err);
+//
+// app.get("/testing", function (req, res) {
+//   res.set('Content-Type', 'application/json');
+//   res.json({message :"tis comes from the node server"})
+// })
+//
+// app.get("/crime", function (req, res) {
+//   res.set('Content-Type', 'application/json');
+//
+//   CrimeLocation.find(function (err, crimelocations) {
+//   if (err) return console.error(err);
+//
+//
+//
+//   res.json({crimelocations : crimelocations})
+// })
+//
+// })
+// //renamge this endpoint later
+// app.get("/crime_aggregated", function (req, res) {
+//   res.set('Content-Type', 'application/json');
+//
+//   CrimeLocation.find(function (err, crimelocations) {
+//   if (err) return console.error(err);
 
   //this is the function that takes crimelocations, and returns aggregated crimes.
   // dataArr = []
@@ -94,10 +94,10 @@ app.get("/crime_aggregated", function (req, res) {
   // });
   // end aggregateCrime
 
-  res.json({crimelocations : crimelocations})
-})
-
-})
+//   res.json({crimelocations : crimelocations})
+// })
+//
+// })
 
 
 
