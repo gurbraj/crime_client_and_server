@@ -80,66 +80,255 @@ class CrimeMap extends React.Component {
       break;
     case "Break and Enter - Residence":
       //return crime.baer
+      markerConfig.crimevolume = crime.baer
+      markerConfig.markerstyle.backgroundColor = 'blue'
+      markerConfig.markerstyle.width = 3 * crime.baer
+      markerConfig.markerstyle.height = 3 * crime.baer
+
+      break;
     case "Shoplifting":
       //return crime.shoplifting
+      markerConfig.crimevolume = crime.shoplifting
+      markerConfig.markerstyle.backgroundColor = 'green'
+      markerConfig.markerstyle.width = 3 * crime.shoplifting
+      markerConfig.markerstyle.height = 3 * crime.shoplifting
+
+      break;
     case "Theft from Motor Vehicle":
       //return crime.tfmv
+      markerConfig.crimevolume = crime.tfmv
+      markerConfig.markerstyle.backgroundColor = 'orange'
+      markerConfig.markerstyle.width = 3 * crime.tfmv
+      markerConfig.markerstyle.height = 3 * crime.tfmv
+
+      break;
     case "Theft of Motor Vehicle":
       //return crime.tomv
+      markerConfig.crimevolume = crime.tomv
+      markerConfig.markerstyle.backgroundColor = 'purple'
+      markerConfig.markerstyle.width = 3 * crime.tomv
+      markerConfig.markerstyle.height = 3 * crime.tomv
+
+      break;
+
    }
+
+   if (markerConfig.crimevolume > 10) {
+     //then max size lets say
+     markerConfig.markerstyle.width = 10
+     markerConfig.markerstyle.height = 10
+   }
+
    return markerConfig
  }
+
   render() {
+
     var { crimelocations, crimetype } = this.props
-    var crimelocations = crimelocations.slice(1, 10000)
+    var crimelocations = crimelocations.slice(1, crimelocations.length-1)
 
-    return (
+    if (crimetype === "Total Crime" ) {
+      return (
+        <div>
+          <ReactMapboxGl
+            style="mapbox://styles/mapbox/streets-v8"
+            accessToken={accessToken}
+            center= {[-122.801094, 49.10443]}
+            containerStyle={{
+              height: "80vh",
+              width: "100vw"
+            }}>
+            <Cluster ClusterMarkerFactory={this.clusterMarker} clusterThreshold={8}>
 
-    <div>
-      <ReactMapboxGl
-        style="mapbox://styles/mapbox/streets-v8"
-        accessToken={accessToken}
-        center= {[-122.801094, 49.10443]}
-        containerStyle={{
-          height: "80vh",
-          width: "100vw"
-        }}>
-        <Cluster ClusterMarkerFactory={this.clusterMarker} clusterThreshold={8}>
+            {
+            crimelocations.map((crimelocation, key) => {
 
-        {
-        crimelocations.map((crimelocation, key) => {
-          let markerConfig = this.getVisibleCrime(crimelocation.crime, crimetype)
+                let markerConfig = this.getVisibleCrime(crimelocation.crime, "Break and Enter - Business")
+                let crimevolume = markerConfig.crimevolume
+                let markerStyle = markerConfig.markerstyle
 
-          let crimevolume = markerConfig.crimevolume
-          let markerStyle = markerConfig.markerstyle
+                if (crimevolume > 1) {
 
-          // let crimevolume = this.getVisibleCrime(crimelocation.crime, crimetype)
-          if (crimevolume > 1) {
+                  return (
+                  <Marker
+                    key={key}
+                    style={markerStyle}
+                    coordinates={crimelocation.geometry.coordinates}
+                    onClick={this.onMarkerClick.bind(this, crimelocation.geometry.coordinates)}
+                  >
+                    {crimevolume}
+                  </Marker>
+                  )
+                } else {
+                  return ""
+                }
 
-            return (
-            <Marker
-              key={key}
-              style={markerStyle}
-              coordinates={crimelocation.geometry.coordinates}
-              onClick={this.onMarkerClick.bind(this, crimelocation.geometry.coordinates)}
-            >
-              {crimevolume}
-            </Marker>
-            )
-          } else {
-            return ""
+            })
+            }
+            </Cluster>
+            <Cluster ClusterMarkerFactory={this.clusterMarker} clusterThreshold={8}>
+
+            {
+            crimelocations.map((crimelocation, key) => {
+
+                let markerConfig = this.getVisibleCrime(crimelocation.crime, "Break and Enter - Residence")
+                let crimevolume = markerConfig.crimevolume
+                let markerStyle = markerConfig.markerstyle
+
+                if (crimevolume > 1) {
+
+                  return (
+                  <Marker
+                    key={key}
+                    style={markerStyle}
+                    coordinates={crimelocation.geometry.coordinates}
+                    onClick={this.onMarkerClick.bind(this, crimelocation.geometry.coordinates)}
+                  >
+                    {crimevolume}
+                  </Marker>
+                  )
+                } else {
+                  return ""
+                }
+
+            })
+            }
+            </Cluster>
+            <Cluster ClusterMarkerFactory={this.clusterMarker} clusterThreshold={8}>
+
+            {
+            crimelocations.map((crimelocation, key) => {
+
+                let markerConfig = this.getVisibleCrime(crimelocation.crime, "Theft from Motor Vehicle")
+                let crimevolume = markerConfig.crimevolume
+                let markerStyle = markerConfig.markerstyle
+
+                if (crimevolume > 1) {
+
+                  return (
+                  <Marker
+                    key={key}
+                    style={markerStyle}
+                    coordinates={crimelocation.geometry.coordinates}
+                    onClick={this.onMarkerClick.bind(this, crimelocation.geometry.coordinates)}
+                  >
+                    {crimevolume}
+                  </Marker>
+                  )
+                } else {
+                  return ""
+                }
+
+            })
+            }
+            </Cluster>
+            <Cluster ClusterMarkerFactory={this.clusterMarker} clusterThreshold={8}>
+
+            {
+            crimelocations.map((crimelocation, key) => {
+
+                let markerConfig = this.getVisibleCrime(crimelocation.crime, "Shoplifting")
+                let crimevolume = markerConfig.crimevolume
+                let markerStyle = markerConfig.markerstyle
+
+                if (crimevolume > 1) {
+
+                  return (
+                  <Marker
+                    key={key}
+                    style={markerStyle}
+                    coordinates={crimelocation.geometry.coordinates}
+                    onClick={this.onMarkerClick.bind(this, crimelocation.geometry.coordinates)}
+                  >
+                    {crimevolume}
+                  </Marker>
+                  )
+                } else {
+                  return ""
+                }
+
+            })
+            }
+            </Cluster>
+            <Cluster ClusterMarkerFactory={this.clusterMarker} clusterThreshold={8}>
+
+            {
+            crimelocations.map((crimelocation, key) => {
+
+                let markerConfig = this.getVisibleCrime(crimelocation.crime, "Theft of Motor Vehicle")
+                let crimevolume = markerConfig.crimevolume
+                let markerStyle = markerConfig.markerstyle
+
+                if (crimevolume > 1) {
+
+                  return (
+                  <Marker
+                    key={key}
+                    style={markerStyle}
+                    coordinates={crimelocation.geometry.coordinates}
+                    onClick={this.onMarkerClick.bind(this, crimelocation.geometry.coordinates)}
+                  >
+                    {crimevolume}
+                  </Marker>
+                  )
+                } else {
+                  return ""
+                }
+
+            })
+            }
+            </Cluster>
+          </ReactMapboxGl>
+        </div>
+
+
+      )
+    } else  {
+
+      return (
+
+      <div>
+        <ReactMapboxGl
+          style="mapbox://styles/mapbox/streets-v8"
+          accessToken={accessToken}
+          center= {[-122.801094, 49.10443]}
+          containerStyle={{
+            height: "80vh",
+            width: "100vw"
+          }}>
+          <Cluster ClusterMarkerFactory={this.clusterMarker} clusterThreshold={8}>
+
+          {
+          crimelocations.map((crimelocation, key) => {
+
+              let markerConfig = this.getVisibleCrime(crimelocation.crime, crimetype)
+              let crimevolume = markerConfig.crimevolume
+              let markerStyle = markerConfig.markerstyle
+
+              if (crimevolume > 1) {
+
+                return (
+                <Marker
+                  key={key}
+                  style={markerStyle}
+                  coordinates={crimelocation.geometry.coordinates}
+                  onClick={this.onMarkerClick.bind(this, crimelocation.geometry.coordinates)}
+                >
+                  {crimevolume}
+                </Marker>
+                )
+              } else {
+                return ""
+              }
+
+          })
           }
-
-        })
-        }
-
-
-
-
           </Cluster>
-      </ReactMapboxGl>
-    </div>
-    )
+        </ReactMapboxGl>
+      </div>
+      )
+    }
+
   }
 }
 

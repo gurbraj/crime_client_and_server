@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux'
+import  crimelocationsyearlyaggregated2016  from "./crimelocationsyearlyaggregated2016.json"
 
-//hydrate state?!
 
-function data(state = {}, action) {
+//hydrated state below
+
+function data(state = { data: crimelocationsyearlyaggregated2016 }, action) {
   switch (action.type) {
     case "FETCHED_DATA":
       return {...state, data: action.data};
@@ -13,7 +15,7 @@ function data(state = {}, action) {
   }
 }
 
-function crimeoptions(state={crimetype: "Total Crime", crimetime: "All Years"}, action) {
+function crimeoptions(state={crimetype: "Total Crime", crimetime: "2016"}, action) {
   switch (action.type) {
     case "TYPE":
       return {...state, crimetype: action.crimetype}
@@ -32,35 +34,3 @@ export default combineReducers({
 })
 
 //selectors goes here
-export function getVisibleData(data, filter) {
-  //can do it differently so instead of data, it gets passed state...
-  //think this only should be passed the TIME filter ing
-
-  if (data && filter!=="All Years") {
-
-    let filteredData = {crimelocations: [] }
-    
-    data.crimelocations.forEach( (crimelocation)=> {
-      let hundred_block = crimelocation.hundred_block
-      let hundred_block_geocoded = crimelocation.hundred_block_geocoded
-      let geometry = crimelocation.geometry
-
-
-      let crimesFiltered = crimelocation.crimes.filter((crime) => {
-          let date = new Date(crime.date)
-          let year = date.getFullYear().toString()
-          return year === filter
-        })
-
-      let crimelocationHash = {hundred_block: hundred_block, hundred_block_geocoded: hundred_block_geocoded, geometry: geometry , crimes: crimesFiltered }
-
-      filteredData.crimelocations.push(crimelocationHash)
-    })
-
-    return filteredData
-
-  }  else {
-    return data
-  }
-
-}

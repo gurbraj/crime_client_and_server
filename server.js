@@ -2,11 +2,12 @@ var path = require("path")
 var express = require("express")
 var app = express()
 
-
 var cors = require("cors")
 require("dotenv").config()
-
 app.use(cors());
+var bodyParser = require('body-parser')
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.set('port', (process.env.PORT || 4000))
 
@@ -44,7 +45,6 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   console.log('mongoose up and running')
 });
-//
 
 
 if (process.env.NODE_ENV === 'production') {
@@ -70,47 +70,91 @@ app.get("/crime", function (req, res) {
 
   CrimeLocation.find(function (err, crimelocations) {
   if (err) return console.error(err);
-
-
-
-  res.json({crimelocations : crimelocations.slice(1,100)})
+    res.json({crimelocations : crimelocations.slice(1,100)})
 })
 
 })
-//renamge this endpoint later
+
 app.get("/crime_aggregated", function (req, res) {
   res.set('Content-Type', 'application/json');
 
   CrimeLocation.find(function (err, crimelocations) {
   if (err) return console.error(err);
 
-  //this is the function that takes crimelocations, and returns aggregated crimes.
-  // dataArr = []
-  //
-  // crimelocations.forEach((crimelocation) =>{
-  //   var hundred_block = crimelocation.hundred_block
-  //   var hundred_block_geocoded = crimelocation.hundred_block_geocoded
-  //   var geometry = crimelocation.geometry
-  //   aggregatedHash = {hundred_block: hundred_block, hundred_block_geocoded: hundred_block_geocoded, geometry: geometry , crime:{baeb:0, baer:0, shoplifting:0, tfmv:0, tomv:0,total_crime:0} }
-  //
-  //   crimelocation.crimes.forEach((crime) => {
-  //
-  //     aggregatedHash.crime.baeb += crime.baeb
-  //     aggregatedHash.crime.baer += crime.baer
-  //     aggregatedHash.crime.shoplifting += crime.shoplifting
-  //     aggregatedHash.crime.tfmv += crime.tfmv
-  //     aggregatedHash.crime.tomv += crime.tomv
-  //     aggregatedHash.crime.total_crime += crime['total_crime']
-  //
-  //
-  //   })
-  //   dataArr.push(aggregatedHash)
-  // });
-  // end aggregateCrime
+    res.json({crimelocations : crimelocations.slice(1,100)})
+  })
 
-  res.json({crimelocations : crimelocations.slice(1,100)})
 })
 
+app.get("/crime_yearly/", function(req, res) {
+  res.set('Content-Type', 'application/json')
+
+  console.log(req.query)
+  CrimeLocation.find(function(err, crimelocations) {
+    //here goes the function that takes input req.query.year and  spits out the yearly dataset
+
+    //memoize this later
+
+    crimelocationsYearlyFilter = function(crimelocations, filterYear) {
+
+      let filteredData = []
+
+      crimelocations.forEach( (crimelocation) => {
+        let hundred_block = crimelocation.hundred_block
+        let hundred_block_geocoded = crimelocation.hundred_block_geocoded
+        let geometry = crimelocation.geometry
+
+
+        let crimesFiltered = crimelocation.crimes.filter((crime) => {
+            let date = new Date(crime.date)
+            let year = date.getFullYear().toString()
+            return year === filterYear;
+          })
+
+        let crimelocationHash = {hundred_block: hundred_block, hundred_block_geocoded: hundred_block_geocoded, geometry: geometry , crimes: crimesFiltered }
+
+        filteredData.push(crimelocationHash)
+      })
+
+      return filteredData
+
+    }
+
+    crimelocationsAggregate = function(crimelocations) {
+      //this function was previously on serverside.
+      let dataArr = []
+
+      crimelocations.forEach((crimelocation) =>{
+        let hundred_block = crimelocation.hundred_block
+        let hundred_block_geocoded = crimelocation.hundred_block_geocoded
+        let geometry = crimelocation.geometry
+        let aggregatedHash = {hundred_block: hundred_block, hundred_block_geocoded: hundred_block_geocoded, geometry: geometry , crime:{baeb:0, baer:0, shoplifting:0, tfmv:0, tomv:0,total_crime:0} }
+
+        crimelocation.crimes.forEach((crime) => {
+
+          aggregatedHash.crime.baeb += crime.baeb
+          aggregatedHash.crime.baer += crime.baer
+          aggregatedHash.crime.shoplifting += crime.shoplifting
+          aggregatedHash.crime.tfmv += crime.tfmv
+          aggregatedHash.crime.tomv += crime.tomv
+          aggregatedHash.crime.total_crime += crime['total_crime']
+
+
+        })
+        dataArr.push(aggregatedHash)
+      });
+      return dataArr
+
+    }
+
+
+    const crimelocationsYearlyFiltered = crimelocationsYearlyFilter(crimelocations, req.query.year)
+
+    const crimelocationsYearlyFilteredAggregated = crimelocationsAggregate(crimelocationsYearlyFiltered)
+
+    res.json({year: req.query, crimelocations : crimelocationsYearlyFilteredAggregated})
+
+  })
 })
 
 

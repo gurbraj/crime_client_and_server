@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "dependencies": {
+    "body-parser": "^1.17.2",
     "cors": "^2.8.1",
     "csv": "^1.1.1",
     "dotenv": "^4.0.0",
