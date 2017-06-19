@@ -70,6 +70,7 @@ app.get("/crime", function (req, res) {
 
   CrimeLocation.find(function (err, crimelocations) {
   if (err) return console.error(err);
+
     res.json({crimelocations : crimelocations.slice(1,100)})
 })
 
