@@ -1,7 +1,7 @@
 // ES6
-import ReactMapboxGl, { Layer, Feature } from "react-mapbox-gl";
+//import ReactMapboxGl, { Layer, Feature } from "react-mapbox-gl";
 import React from "react";
-import { Marker, Cluster } from "react-mapbox-gl";
+import ReactMapboxGl, { Marker, Cluster, ZoomControl } from "react-mapbox-gl";
 import config from "../config.json";
 
 const { accessToken } = config;
@@ -57,7 +57,8 @@ class CrimeMap extends React.Component {
        justifyContent: 'center',
        alignItems: 'center',
        border: '2px solid #C9C9C9',
-       pointerEvents: 'none'
+       pointerEvents: 'none',
+       opacity: 0.5
      }
 
    const markerConfig = {crimevolume: "", markerstyle: markerStyle }
@@ -130,14 +131,19 @@ class CrimeMap extends React.Component {
     if (crimetype === "Total Crime" ) {
       return (
         <div>
+
           <ReactMapboxGl
             style="mapbox://styles/mapbox/streets-v8"
             accessToken={accessToken}
             center= {[-122.801094, 49.10443]}
             containerStyle={{
               height: "80vh",
-              width: "100vw"
+              width: "90vw",
+              position: "relative",
+              margin: "auto",
+              borderRadius: "5px"
             }}>
+            <ZoomControl/>
             <Cluster ClusterMarkerFactory={this.clusterMarker} clusterThreshold={8}>
 
             {
@@ -279,6 +285,13 @@ class CrimeMap extends React.Component {
             }
             </Cluster>
           </ReactMapboxGl>
+          <div id="crime-map-legend">
+            <div><span style={{backgroundColor: "red"}}></span>Break and Enter - Business</div>
+            <div><span style={{backgroundColor: "blue"}}></span>Break and Enter - Residence</div>
+            <div><span style={{backgroundColor: "green"}}></span>Shoplifting</div>
+            <div><span style={{backgroundColor: "orange"}}></span>Theft from Motor Vehicle</div>
+            <div><span style={{backgroundColor: "purple"}}></span>Theft of Motor Vehicle</div>
+          </div>
         </div>
 
 
@@ -294,8 +307,13 @@ class CrimeMap extends React.Component {
           center= {[-122.801094, 49.10443]}
           containerStyle={{
             height: "80vh",
-            width: "100vw"
+            width: "90vw",
+            position: "relative",
+            margin: "auto",
+            borderRadius: "5px"
           }}>
+          }}>
+          <ZoomControl/>
           <Cluster ClusterMarkerFactory={this.clusterMarker} clusterThreshold={8}>
 
           {

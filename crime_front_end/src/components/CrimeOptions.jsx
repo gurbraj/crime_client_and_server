@@ -8,7 +8,7 @@ class CrimeOptions extends React.Component {
 
     return(
       <div>
-        <DropDownMenu value={crimetype} onChange={handleCrimeOptionsType} >
+        <DropDownMenu labelStyle={{color:"white"}} value={crimetype} onChange={handleCrimeOptionsType} >
           <MenuItem value={"Total Crime"} primaryText="Total Crime" />
           <MenuItem value={"Break and Enter - Business"} primaryText="Break and Enter - Business" />
           <MenuItem value={"Break and Enter - Residence"} primaryText="Break and Enter - Residence" />
@@ -18,7 +18,7 @@ class CrimeOptions extends React.Component {
         </DropDownMenu>
         <br/>
 
-        <DropDownMenu value={crimetime} onChange={handleCrimeOptionsTime} >
+        <DropDownMenu labelStyle={{color:"white"}} value={crimetime} onChange={handleCrimeOptionsTime} >
           <MenuItem value={"All Years"} primaryText="All Years" />
           <MenuItem value={"2011"} primaryText="2011" />
           <MenuItem value={"2012"} primaryText="2012" />

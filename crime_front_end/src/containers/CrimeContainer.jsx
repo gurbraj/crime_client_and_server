@@ -39,17 +39,19 @@ function mapStateToProps(state) {
 class CrimeContainer extends React.Component {
   componentDidMount() {
     //this.props.fetchData("http://localhost:4000/crime_aggregated");
-    //this.props.loadingData(true)
+    this.props.loadingData(true)
+    setTimeout(() => { return  this.props.loadingData(false)}, 8000 )
   }
 
   render() {
     const {loading, data, crimetype, handleCrimeOptionsType, crimetime, handleCrimeOptionsTime} = this.props;
-      //setTimeout(() => { return  this.props.loadingData(false)}, 2000 )
     return (
       <div>
-        <div>
-        <CrimeOptions crimetype={crimetype} handleCrimeOptionsType={handleCrimeOptionsType} handleCrimeOptionsTime={handleCrimeOptionsTime} crimetime={crimetime} />
-        { data.crimelocations && <CrimeMap crimelocations={data.crimelocations} crimetype={crimetype}/> }
+
+        <div id="crime-map-div">
+          <CrimeOptions crimetype={crimetype} handleCrimeOptionsType={handleCrimeOptionsType} handleCrimeOptionsTime={handleCrimeOptionsTime} crimetime={crimetime} />
+          { data.crimelocations && <CrimeMap crimelocations={data.crimelocations} crimetype={crimetype}/> }
+        
         </div>
 
         {this.props.loading &&
