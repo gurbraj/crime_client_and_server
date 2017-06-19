@@ -40,7 +40,8 @@ class CrimeContainer extends React.Component {
   componentDidMount() {
     //this.props.fetchData("http://localhost:4000/crime_aggregated");
     this.props.loadingData(true)
-    setTimeout(() => { return  this.props.loadingData(false)}, 8000 )
+    setTimeout(() => { return  this.props.loadingData(false)}, 10000 )
+    //use for loading hydrated state
   }
 
   render() {
@@ -51,15 +52,15 @@ class CrimeContainer extends React.Component {
         <div id="crime-map-div">
           <CrimeOptions crimetype={crimetype} handleCrimeOptionsType={handleCrimeOptionsType} handleCrimeOptionsTime={handleCrimeOptionsTime} crimetime={crimetime} />
           { data.crimelocations && <CrimeMap crimelocations={data.crimelocations} crimetype={crimetype}/> }
-        
+
+          {this.props.loading &&
+            <div id="crime-container-loading">
+            <CircularProgress size={160} thickness={7} color="black" />
+            <p id="crime-container-loading-text">Loading data </p>
+            </div>
+          }
         </div>
 
-        {this.props.loading &&
-        <div id="crime-container-loading">
-          <CircularProgress size={160} thickness={7} color="black" />
-          <p id="crime-container-loading-text">Fetching data </p>
-        </div>
-        }
 
       </div>
     )

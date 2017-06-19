@@ -4,6 +4,7 @@ import injectTapEventPlugin from "react-tap-event-plugin";
 import CrimeContainer from "../CrimeContainer"
 import CustomAppBar from "../CustomAppBar"
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import About from "../../components/About"
 injectTapEventPlugin();
 
 const App = () => (
@@ -14,6 +15,7 @@ const App = () => (
       </header>
       <main>
         <Route exact path="/" component={CrimeContainer} />
+        <Route exact path="/about" component={About} />
       </main>
     </div>
   </MuiThemeProvider>
