@@ -1,7 +1,20 @@
 {
-  "main.css": "static/css/main.fd54943f.css",
-  "main.css.map": "static/css/main.fd54943f.css.map",
-  "main.js": "static/js/main.61d3cb8b.js",
-  "main.js.map": "static/js/main.61d3cb8b.js.map",
-  "static/media/index.scss": "static/media/index.a83b3d5f.scss"
+  "main.css": "static/css/main.308a499f.css",
+  "main.css.map": "static/css/main.308a499f.css.map",
+  "main.js": "static/js/main.9ed137b0.js",
+  "main.js.map": "static/js/main.9ed137b0.js.map",
+  "static/media/all_crime_all_years.png": "static/media/all_crime_all_years.55a113a2.png",
+  "static/media/empirical_density_functions.png": "static/media/empirical_density_functions.f6f1aff5.png",
+  "static/media/index.scss": "static/media/index.a83b3d5f.scss",
+  "static/media/monthly_crime_aggregated.png": "static/media/monthly_crime_aggregated.d5df0b7a.png",
+  "static/media/space_Break and Enter - Residence.png": "static/media/space_Break and Enter - Residence.95c78f93.png",
+  "static/media/space_BreakandEnter-Business.png": "static/media/space_BreakandEnter-Business.6fb8e289.png",
+  "static/media/space_Shoplifting.png": "static/media/space_Shoplifting.e232c58b.png",
+  "static/media/space_Theft from Motor Vehicle.png": "static/media/space_Theft from Motor Vehicle.8da53e5b.png",
+  "static/media/space_Theft of Motor Vehicle.png": "static/media/space_Theft of Motor Vehicle.e63f40f6.png",
+  "static/media/space_time_Break and Enter - Business.png": "static/media/space_time_Break and Enter - Business.fd4bb62f.png",
+  "static/media/space_time_Break and Enter - Residence.png": "static/media/space_time_Break and Enter - Residence.f55f6d69.png",
+  "static/media/space_time_Shoplifting.png": "static/media/space_time_Shoplifting.1547982b.png",
+  "static/media/space_time_Theft from Motor Vehicle.png": "static/media/space_time_Theft from Motor Vehicle.59a11e1a.png",
+  "static/media/space_time_Theft of Motor Vehicle.png": "static/media/space_time_Theft of Motor Vehicle.35297614.png"
 }

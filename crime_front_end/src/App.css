@@ -1,4 +1,4 @@
-.App {
+/*.App {
   text-align: center;
 }
 
@@ -21,13 +21,13 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
-}
+}*/
 
 #crime-container-loading, #crime-container-loading-text  {
     width: 100px;
     height: 100px;
     position: absolute;
-    top:100;
+    top:10;
     bottom: 0;
     left: 0;
     right: 0;
@@ -71,7 +71,8 @@
 #crime-map-legend p {
   margin: 0 0 10px;
   text-align: center;
-  font-style: italic;}
+
+  font-size: 8px;}
 
 #crime-map-legend div span {
   border-radius: 50%;
@@ -79,12 +80,30 @@
   height: 10px;
   margin-right: 5px;
   width: 10px;
-  font-size: 10px;
+
 }
 
-#crime-map-div {
+#crime-map-div, #data-story-div {
   margin-top: 100px;
   border-radius: 25px;
   background: black;
   padding: 20px;
+  font-family: 'Roboto', sans-serif;
+
 }
+
+#data-story-div {
+  color: white;
+}
+
+html { font-family: 'Roboto', sans-serif; }
+
+.custom-app-bar {
+  color: white;
+  text-decoration: none;
+  transition: text-decoration 2s;
+}
+
+/*.custom-app-bar:hover {
+  text-decoration: underline;
+}*/

@@ -135,7 +135,8 @@ class CrimeMap extends React.Component {
           <ReactMapboxGl
             style="mapbox://styles/mapbox/streets-v8"
             accessToken={accessToken}
-            center= {[-122.801094, 49.10443]}
+            center= {[-122.801094, 49.14443]}
+            zoom={[10]}
             containerStyle={{
               height: "80vh",
               width: "90vw",
@@ -304,7 +305,8 @@ class CrimeMap extends React.Component {
         <ReactMapboxGl
           style="mapbox://styles/mapbox/streets-v8"
           accessToken={accessToken}
-          center= {[-122.801094, 49.10443]}
+          center= {[-122.801094, 49.14443]}
+          zoom={[10]}
           containerStyle={{
             height: "80vh",
             width: "90vw",

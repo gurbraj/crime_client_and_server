@@ -8,6 +8,8 @@ import Avatar from 'material-ui/Avatar';
 import IconButton from 'material-ui/IconButton';
 import AppBar from "material-ui/AppBar";
 
+
+
 function mapDispatchToProps(dispatch) {
   return ({
   })
@@ -16,12 +18,16 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
   return ({})
 }
+
 export class CustomAppBar extends React.Component {
   componentDidMount() {
   }
   render() {
     return (
-      <AppBar title="Surrey Crime Spots (Work in progress)" iconElementLeft={<IconButton><img src ="../../crimelogo.png" height="38" width="38" style={{float:"left"}} /></IconButton>}  iconElementRight={<FlatButton><NavLink to="/about" style={{color: "white"}}>About</NavLink></FlatButton>} style={{backgroundColor: "black"}}/>
+      <div>
+      <AppBar title={<FlatButton><NavLink className="custom-app-bar" to="/" >Surrey Crime Spots (work in progress)</NavLink> </FlatButton>} style={{backgroundColor: "black"}} iconElementLeft={<IconButton><img src ="../../crimelogo.png" height="33" width="33" style={{float:"left"}} /></IconButton>}  iconElementRight={<FlatButton><NavLink to="/about" className="custom-app-bar">About</NavLink></FlatButton>} style={{backgroundColor: "black"}}/>
+
+      </div>
     )
   }
 }
