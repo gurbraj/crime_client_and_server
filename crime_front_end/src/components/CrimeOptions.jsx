@@ -18,12 +18,13 @@ class CrimeOptions extends React.Component {
         </DropDownMenu>
         <br/>
         <DropDownMenu labelStyle={{color:"white"}} value={crimetime} onChange={handleCrimeOptionsTime} >
-          <MenuItem value={"All Years"} primaryText="All Years" />
+          {/*<MenuItem value={"All Years"} primaryText="All Years" />
           <MenuItem value={"2011"} primaryText="2011" />
           <MenuItem value={"2012"} primaryText="2012" />
           <MenuItem value={"2013"} primaryText="2013" />
           <MenuItem value={"2014"} primaryText="2014" />
-          <MenuItem value={"2015"} primaryText="2015" />
+          <MenuItem value={"2015"} primaryText="2015" />*/}
+          <MenuItem value={"2015"} primaryText="Coming soon!" />
           <MenuItem value={"2016"} primaryText="2016" />
         </DropDownMenu>
       </div>
