@@ -2,6 +2,12 @@ import React from "react";
 import { connect } from "react-redux";
 import Actions from "../actions";
 import ChatRoom from "../components/ChatRoom";
+import Drawer from 'material-ui/Drawer';
+import MenuItem from 'material-ui/MenuItem';
+import FlatButton from 'material-ui/FlatButton';
+import {List, ListItem} from 'material-ui/List';
+import CommunicationCall from 'material-ui/svg-icons/communication/call';
+import AddUserDialog from "./AddUserDialog";
 const url = "http://localhost:4000"
 
 function mapDispatchToProps(dispatch) {
@@ -9,8 +15,9 @@ function mapDispatchToProps(dispatch) {
     fetchChatData() {
 
     },
-    addContact() {
-      let phoneNumber = prompt("add phone number, EX: +17787070030")
+    addContact(phoneNumber) {
+      //let phoneNumber = prompt("add phone number, EX: +17787070030")
+
       fetch(url + "/contacts/new",
         {method: "POST",
         headers: {
@@ -40,8 +47,14 @@ class ChatContainer extends React.Component {
   render() {
     return (
       <div>
-        <button onClick={this.props.addContact}>this is da chatcontainer</button>
-        {this.props.contacts}
+        <br/>
+        <br/>
+        <List>
+          <AddUserDialog addContact={this.props.addContact}/>
+          {this.props.contacts && this.props.contacts.map(contact => {return <ListItem primaryText={contact} style={{width:"300px"}} leftIcon={<CommunicationCall color={"black"}/>} />})}
+        </List>
+        <br/>
+        <br/>
         <ChatRoom messages="placeholder message"/>
       </div>
     )
