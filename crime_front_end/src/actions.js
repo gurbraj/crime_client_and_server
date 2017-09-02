@@ -49,6 +49,13 @@ function handleCrimeOptionsTime(event, index, time) {
     crimetime: time
   }
 }
+// chat actions below.
+function contactAdded(phone_number) {
+  return {
+    type: "CONTACT_ADDED",
+    phone_number: phone_number
+  }
+}
 
 
 
@@ -57,6 +64,7 @@ export default {
   fetchedData,
   loadingData,
   handleCrimeOptionsType,
-  handleCrimeOptionsTime
+  handleCrimeOptionsTime,
+  contactAdded
 
 }

@@ -27,10 +27,23 @@ function crimeoptions(state={crimetype: "Total Crime", crimetime: "2016"}, actio
   }
 }
 
+//chat reducers below
+function contacts(state=[], action) {
+  switch (action.type) {
+    case "CONTACT_ADDED":
+      return [...state, action.phone_number]
+    default:
+      return state
+  }
+
+}
+
 
 export default combineReducers({
   data,
-  crimeoptions
+  crimeoptions,
+  contacts
+
 })
 
 //selectors goes here
