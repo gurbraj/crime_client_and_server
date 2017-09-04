@@ -7,7 +7,7 @@ import {List, ListItem} from 'material-ui/List';
 import CommunicationCall from 'material-ui/svg-icons/communication/call';
 import AddUserDialog from "./AddUserDialog";
 //const url = "http://localhost:4000"
-const url = "https://surrey-crime-spots.herokuapp.com/"
+const url = "https://surrey-crime-spots.herokuapp.com"
 
 function mapDispatchToProps(dispatch) {
   return ({

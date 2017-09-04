@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 import  crimelocationsyearlyaggregated2016  from "./crimelocationsyearlyaggregated2016.json"
 import openSocket from 'socket.io-client';
 //const url = "http://localhost:4000"
-const url = "https://surrey-crime-spots.herokuapp.com/"
+const url = "https://surrey-crime-spots.herokuapp.com"
 const socket = openSocket(url);
 
 //hydrated state below
