@@ -3,7 +3,8 @@ import openSocket from 'socket.io-client';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
-const url = "http://localhost:4000"
+//const url = "http://localhost:4000"
+const url = "https://surrey-crime-spots.herokuapp.com/"
 const socket = openSocket(url)
 
 

@@ -6,7 +6,8 @@ import ChatRoom from "../components/ChatRoom";
 import {List, ListItem} from 'material-ui/List';
 import CommunicationCall from 'material-ui/svg-icons/communication/call';
 import AddUserDialog from "./AddUserDialog";
-const url = "http://localhost:4000"
+//const url = "http://localhost:4000"
+const url = "https://surrey-crime-spots.herokuapp.com/"
 
 function mapDispatchToProps(dispatch) {
   return ({
