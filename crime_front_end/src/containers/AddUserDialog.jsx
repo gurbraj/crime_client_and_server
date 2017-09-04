@@ -26,20 +26,18 @@ export default class AddUserDialog extends React.Component {
   };
 
   render() {
-
-
     return (
-      <div>
+      <div >
         <FlatButton label="Add contact" onClick={this.handleOpen} />
         <Dialog
           title="Add phone number, EX: +17787070030"
-          bodyStyle={{leftMargin:"100px"}}
+          bodyStyle={{leftMargin:"50%"}}
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
         >
-        <form action="" onSubmit={(e) => { e.preventDefault(); this.handleCloseSubmit(e)} } >
-          <TextField id="phone_number" />
+        <form action="" onSubmit={(e) => { e.preventDefault(); this.handleCloseSubmit(e)} }  >
+          <TextField id="phone_number" underlineFocusStyle={{borderColor: "grey500"}}/>
           <FlatButton label="submit" type='submit'/>
         </form>
         </Dialog>

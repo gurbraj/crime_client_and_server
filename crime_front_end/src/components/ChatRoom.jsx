@@ -19,15 +19,16 @@ class ChatRoom extends React.Component {
   }
   render() {
     const style = {
-                          height: 180 + 27 * 10,
+                          height: 180 + 100 + 27 * this.props.contactMessages.length,
                           width: 800,
-                          marginTop: "210px",
+                          marginTop: "100px",
                           textAlign: 'center',
                           display: 'inline-block',
                         };
     return (
-      <div>
+      <div style={{marginLeft:"30%"}}>
         <Paper style={style} zDepth={5}>
+          <br/>
           <h2>Chat with {this.props.phoneNumber}</h2>
           <br/>
           <br/>
@@ -37,21 +38,20 @@ class ChatRoom extends React.Component {
                 .map( (contactMessage) => {
 
                   if (contactMessage.incoming_message === true) {
-                    return <li key={contactMessage._id}> <b> {this.props.contact}</b> : { contactMessage.body} </li>
+                    return <li key={contactMessage._id} className="incoming_message"> <b> {this.props.phoneNumber}</b> : { contactMessage.body} </li>
                   } else {
-                    return <li key={contactMessage._id}> <b> app </b> : { contactMessage.body} </li>
+                    return <li key={contactMessage._id} className="outgoing_message"> <b> app </b> : { contactMessage.body} </li>
                   }
                 })
             }
-          </ul>
-          <br/>
-          <br/>
-          <br/>
-          <form action="" onSubmit={this.props.sendMessage}>
-            <TextField id="message" hintText="write your message"/>
+            <br/>
+
+            <form action="" onSubmit={this.props.sendMessage} >
+            <TextField id="message" hintText="write your message" underlineFocusStyle={{borderColor: "grey500"}}/>
             <input id="phone_number" value={this.props.phoneNumber} style={{display: "none"}} onChange={() =>{}}/>
             <FlatButton label="Send" type="submit"/>
-          </form>
+            </form>
+          </ul>
         </Paper>
       </div>
     )

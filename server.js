@@ -140,6 +140,27 @@ app.get("/contacts", (req,res) => {
     res.json({contacts: contacts})
   })
 })
+
+app.post("/sms", (req, res) => {
+  let phoneNumber = req.body.From;
+  let body = req.body.Body;
+  let messageObj = {"phone_number": phoneNumber, "body": body, "incoming_message": true}
+
+  Contact.findOne({"phone_number": phoneNumber}, (err, foundContact) => {
+    foundContact.messages.push(messageObj)
+
+    foundContact.save((err, foundContact) => {
+      if (err) {
+        console.log(err)
+      } else {
+        console.log("saved message")
+      }
+    })
+  })
+
+  io.emit("chat message", messageObj)
+  res.json({message: "created message in db"})
+})
 //end chat end points
 
 

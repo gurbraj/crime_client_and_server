@@ -2,9 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import Actions from "../actions";
 import ChatRoom from "../components/ChatRoom";
-import Drawer from 'material-ui/Drawer';
-import MenuItem from 'material-ui/MenuItem';
-import FlatButton from 'material-ui/FlatButton';
+
 import {List, ListItem} from 'material-ui/List';
 import CommunicationCall from 'material-ui/svg-icons/communication/call';
 import AddUserDialog from "./AddUserDialog";
@@ -50,8 +48,8 @@ function mapDispatchToProps(dispatch) {
       })
     },
     launchChatRoom(e) {
-
-      let phoneNumber = e.target.innerText
+      var phoneNumber = e.currentTarget.children[0].innerText
+      var phoneNumber = phoneNumber.slice(0, phoneNumber.length - 1)
       dispatch(Actions.chatRoomLaunched(phoneNumber))
     },
     sendMessage(event) {
@@ -77,7 +75,6 @@ function mapDispatchToProps(dispatch) {
       }
       )
       event.target.querySelector('#message').value = ""
-
 
     },
     handleMessage(messageObj) {
@@ -105,13 +102,16 @@ class ChatContainer extends React.Component {
       <div>
         <br/>
         <br/>
-        <List>
-          <AddUserDialog addContact={this.props.addContact}/>
-          {this.props.contacts && this.props.contacts.map(contact => {return <ListItem onClick={this.props.launchChatRoom} primaryText={contact} style={{width:"300px"}} leftIcon={<CommunicationCall color={"black"}/>} />})}
-        </List>
+        <div style={{width:"15%", float: "left", marginLeft: "2%"}}>
+          <List style={{width: "200px"}}>
+            <AddUserDialog addContact={this.props.addContact}/>
+            {this.props.contacts && this.props.contacts.map(contact => {return <ListItem onClick={this.props.launchChatRoom} primaryText={contact} leftIcon={<CommunicationCall color={"black"}/>} />})}
+          </List>
+        </div>
         <br/>
         <br/>
-        { phoneNumber && contactMessages && <ChatRoom contactMessages={contactMessages} phoneNumber={this.props.phone_number} sendMessage={this.props.sendMessage} handleMessage={this.props.handleMessage}/> }
+        { phoneNumber && contactMessages && <ChatRoom contactMessages={contactMessages} phoneNumber={phoneNumber} sendMessage={this.props.sendMessage} handleMessage={this.props.handleMessage}/> }
+        <p style={{position: "fixed", bottom: "10%", width:"100%", textAlign: "center"}}>Here you can add a canadian telephone number to chat about crime with. </p>
       </div>
     )
   }
