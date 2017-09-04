@@ -1,7 +1,7 @@
+var config = require("./config.json")
 var path = require("path")
 var express = require("express")
 var app = express()
-
 var cors = require("cors")
 require("dotenv").config()
 app.use(cors());
@@ -11,23 +11,14 @@ app.use(bodyParser.json());
 
 app.set('port', (process.env.PORT || 4000))
 
+const TWILIO_ACCOUNT_SID = config.TWILIO_ACCOUNT_SID;
+const TWILIO_AUTH_TOKEN = config.TWILIO_AUTH_TOKEN;
+const TWILIO_NUMBER = config.TWILIO_NUMBER
+var twilioClient = require('twilio')(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
 
 //mongodb stuff
 var MongoClient = require('mongodb').MongoClient
   , assert = require('assert');
-
-// Connection URL
-// var url = 'mongodb://localhost:27017/db';
-//
-// // Use connect method to connect to the server
-// MongoClient.connect(url, function(err, db) {
-//   assert.equal(null, err);
-//   console.log("Connected successfully to mongodb server");
-//
-//   db.close();
-// });
-//end mongodb stuff
-//mongoose stuff
 
 var mongoose = require('mongoose');
 
@@ -40,6 +31,8 @@ if (process.env.NODE_ENV === 'production') {
 var db = mongoose.connection;
 
 var CrimeLocation = require('./models/crimelocation');
+var Contact = require('./models/contact');
+//Contact.collection.drop();
 
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
@@ -58,6 +51,97 @@ if (process.env.NODE_ENV === 'production') {
 
 
 }
+
+//set up socket
+const server = app.listen(app.get('port'), function () {
+  console.log("Listening on" +  app.get('port') )
+})
+
+var io = require('socket.io')(server);
+
+io.on('connection', function(socket){
+  console.log('a user connected');
+
+  socket.on('disconnect', function(){
+    console.log('user disconnected');
+  });
+
+  //these are OUTGOING chat messages from the app
+  socket.on('chat message', function(messageObj){
+    console.log(messageObj);
+    //io.emit('chat message', "hello world from server!");
+    let body = messageObj.body;
+    let phoneNumber = messageObj.phone_number
+
+    //send the outgoing message to twilio
+    twilioClient.messages.create(
+      {to: phoneNumber, from: TWILIO_NUMBER, body: body},
+      (error, message) => {
+        if (!error) {
+          console.log('success sending text')
+        } else {
+          console.log('error sending text')
+        }
+      }
+    )
+
+    io.emit('chat message', messageObj)
+
+  });
+
+});
+
+
+// chat end points
+app.get('/contacts', (req, res) => {
+  Contact.find((err, contacts) => {
+    res.json({contacts: contacts})
+  })
+
+})
+
+app.post('/contacts/new', (req,res) => {
+  let contactHash = {phone_number: req.body.phone_number};
+  let contact = new Contact(contactHash);
+  console.log(contactHash,contact)
+  contact.save((err, contact) => {
+    if (err) {
+      console.log(err)
+    } else {
+      console.log("saved contact:", contact)
+      res.json(contact)
+    }
+  })
+
+})
+
+app.post('/contacts/messages/new', (req, res) => {
+  let phoneNumber = req.body.phone_number;
+  let messageBody = req.body.body;
+
+  Contact.findOne({"phone_number": phoneNumber}, (err, foundContact) => {
+    foundContact.messages.push({"body": messageBody});
+
+    foundContact.save((err, foundContact) => {
+      if (err) {
+        console.log(err)
+      } else {
+        console.log("saved message")
+      }
+    })
+
+    res.json({message: "created message in db"})
+  })
+
+})
+
+app.get("/contacts", (req,res) => {
+  Contact.find((err, contacts) => {
+    res.json({contacts: contacts})
+  })
+})
+//end chat end points
+
 
 
 app.get("/testing", function (req, res) {
@@ -160,6 +244,6 @@ app.get("/crime_yearly/", function(req, res) {
 
 
 
-app.listen(app.get('port'), function () {
-  console.log("Listening on" +  app.get('port') )
-})
+// app.listen(app.get('port'), function () {
+//   console.log("Listening on" +  app.get('port') )
+// })

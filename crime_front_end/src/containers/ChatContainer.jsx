@@ -13,6 +13,23 @@ const url = "http://localhost:4000"
 function mapDispatchToProps(dispatch) {
   return ({
     fetchChatData() {
+      fetch(url + "/contacts")
+      .then(res => res.json())
+      .then(data => {
+        let contacts = [];
+
+        for (let i = 0; i < data.contacts.length; i++) {
+          let contactObj = data.contacts[i];
+          console.log(contactObj)
+          let phoneNumber = contactObj.phone_number;
+          let contactMessages = contactObj.messages;
+          contacts.push(phoneNumber);
+          dispatch(Actions.messagesFetched(contactMessages, phoneNumber));
+        }
+
+        dispatch(Actions.contactsFetched(contacts))
+
+      })
 
     },
     addContact(phoneNumber) {
@@ -31,31 +48,70 @@ function mapDispatchToProps(dispatch) {
 
         dispatch(Actions.contactAdded(contact.phone_number))
       })
+    },
+    launchChatRoom(e) {
+
+      let phoneNumber = e.target.innerText
+      dispatch(Actions.chatRoomLaunched(phoneNumber))
+    },
+    sendMessage(event) {
+      event.preventDefault()
+
+      let body = event.target.querySelector('#message').value;
+      let phoneNumber= event.target.querySelector('#phone_number').value;
+
+      //idea now is to write the message to the database, and send the message
+      //directly through the socket through the action messageSent.
+      //NOT wait for the server to have saved the message before emiting
+
+      let messageObj = {phone_number: phoneNumber, body: body}
+      dispatch(Actions.messageSent(messageObj))
+
+      fetch(url + "/contacts/messages/new",
+      { method: "POST",
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(messageObj)
+      }
+      )
+      event.target.querySelector('#message').value = ""
+
+
+    },
+    handleMessage(messageObj) {
+      dispatch(Actions.messageHandled(messageObj));
     }
   })
 }
 function mapStateToProps(state) {
   return ({
-    contacts: state.contacts
+    contacts: state.contacts,
+    phone_number: state.messages.phone_number,
+    messages: state.messages
   })
 }
 
 class ChatContainer extends React.Component {
   componentDidMount() {
+    this.props.fetchChatData()
 
   }
   render() {
+    let phoneNumber = this.props.phone_number;
+    let contactMessages = this.props.messages[phoneNumber]? this.props.messages[phoneNumber]: []
     return (
       <div>
         <br/>
         <br/>
         <List>
           <AddUserDialog addContact={this.props.addContact}/>
-          {this.props.contacts && this.props.contacts.map(contact => {return <ListItem primaryText={contact} style={{width:"300px"}} leftIcon={<CommunicationCall color={"black"}/>} />})}
+          {this.props.contacts && this.props.contacts.map(contact => {return <ListItem onClick={this.props.launchChatRoom} primaryText={contact} style={{width:"300px"}} leftIcon={<CommunicationCall color={"black"}/>} />})}
         </List>
         <br/>
         <br/>
-        <ChatRoom messages="placeholder message"/>
+        { phoneNumber && contactMessages && <ChatRoom contactMessages={contactMessages} phoneNumber={this.props.phone_number} sendMessage={this.props.sendMessage} handleMessage={this.props.handleMessage}/> }
       </div>
     )
   }

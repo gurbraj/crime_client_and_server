@@ -57,6 +57,41 @@ function contactAdded(phone_number) {
   }
 }
 
+function contactsFetched(contacts) {
+  return {
+    type: "CONTACTS_FETCHED",
+    contacts: contacts
+  }
+}
+
+function chatRoomLaunched(phoneNumber) {
+  return {
+    type: "CHAT_ROOM_LAUNCHED",
+    phone_number: phoneNumber
+  }
+}
+
+function messageSent(messageObj) {
+  return {
+    type: "MESSAGE_SENT",
+    messageobj: messageObj
+  }
+}
+
+function messagesFetched(contactMessages, phoneNumber) {
+  return {
+    type: "MESSAGES_FETCHED",
+    contact_messages: contactMessages,
+    phone_number: phoneNumber
+  }
+}
+
+function messageHandled(messageObj) {
+  return {
+    type: "MESSAGE_HANDLED",
+    message_obj: messageObj
+  }
+}
 
 
 export default {
@@ -65,6 +100,11 @@ export default {
   loadingData,
   handleCrimeOptionsType,
   handleCrimeOptionsTime,
-  contactAdded
+  contactAdded,
+  contactsFetched,
+  chatRoomLaunched,
+  messageSent,
+  messagesFetched,
+  messageHandled
 
 }
