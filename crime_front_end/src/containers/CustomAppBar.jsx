@@ -28,6 +28,7 @@ export class CustomAppBar extends React.Component {
       <AppBar style={{backgroundColor: "black"}} title={<FlatButton><NavLink className="custom-app-bar" to="/" >Surrey Crime Spots (work in progress)</NavLink> </FlatButton>} style={{backgroundColor: "black"}} iconElementLeft={<IconButton><img src ="../../crimelogo.png" height="33" width="33" style={{float:"left"}} /></IconButton>}  iconElementRight=
       {
       <div>
+        <FlatButton><NavLink to="/data_story" className="custom-app-bar">Data Story</NavLink></FlatButton>
         <FlatButton><NavLink to="/chat" className="custom-app-bar">Chat</NavLink></FlatButton>
         <FlatButton><NavLink to="/about" className="custom-app-bar">About</NavLink></FlatButton>
       </div>

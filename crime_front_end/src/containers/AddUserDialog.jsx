@@ -30,7 +30,7 @@ export default class AddUserDialog extends React.Component {
       <div >
         <FlatButton label="Add contact" onClick={this.handleOpen} />
         <Dialog
-          title="Add phone number, EX: +17787070030"
+          title="Here you can add a canadian telephone number to chat about crime with. EX: +17787070030"
           bodyStyle={{leftMargin:"50%"}}
           modal={false}
           open={this.state.open}

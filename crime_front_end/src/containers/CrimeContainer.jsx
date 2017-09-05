@@ -5,8 +5,6 @@ import CrimeMap from "../components/CrimeMap";
 import CircularProgress from 'material-ui/CircularProgress';
 import '../App.css';
 import CrimeOptions from "../components/CrimeOptions";
-import DataStory from "../components/DataStory"
-//import { getVisibleData } from "../reducers";
 
 function mapDispatchToProps(dispatch) {
   return ({
@@ -61,7 +59,7 @@ class CrimeContainer extends React.Component {
           }
         </div>
 
-        <DataStory/>
+
       </div>
     )
   }

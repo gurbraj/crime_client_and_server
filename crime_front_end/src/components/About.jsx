@@ -16,6 +16,10 @@ class About extends React.Component {
          I have then taken the manipulated data (is now panel data) and populated it into a database and built this web app.
         </p>
 
+        <p>
+          I have also built a SMS-chat functionality that uses socket.io and the twilio-API. Since I'm using the free version of twilio, only canadian phone numbers work.
+        </p>
+
         <br/>
 
 

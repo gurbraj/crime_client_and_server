@@ -104,7 +104,7 @@ class ChatContainer extends React.Component {
         <br/>
         <br/>
         <div style={{width:"15%", float: "left", marginLeft: "2%"}}>
-          <List style={{width: "200px"}}>
+          <List style={{width: "250px"}}>
             <AddUserDialog addContact={this.props.addContact}/>
             {this.props.contacts && this.props.contacts.map(contact => {return <ListItem onClick={this.props.launchChatRoom} primaryText={contact} leftIcon={<CommunicationCall color={"black"}/>} />})}
           </List>
@@ -112,7 +112,7 @@ class ChatContainer extends React.Component {
         <br/>
         <br/>
         { phoneNumber && contactMessages && <ChatRoom contactMessages={contactMessages} phoneNumber={phoneNumber} sendMessage={this.props.sendMessage} handleMessage={this.props.handleMessage}/> }
-        <p style={{position: "fixed", bottom: "10%", width:"100%", textAlign: "center"}}>Here you can add a canadian telephone number to chat about crime with. </p>
+        
       </div>
     )
   }

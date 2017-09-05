@@ -5,7 +5,7 @@ import CrimeContainer from "../CrimeContainer";
 import CustomAppBar from "../CustomAppBar";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import ChatContainer from "../ChatContainer";
-
+import DataStory from "../../components/DataStory";
 import About from "../../components/About";
 injectTapEventPlugin();
 
@@ -19,6 +19,7 @@ const App = () => (
         <Route exact path="/" component={CrimeContainer} />
         <Route exact path="/about" component={About} />
         <Route exact path="/chat" component={ChatContainer}/>
+        <Route exact path="/data_story" component={DataStory}/>
       </main>
 
     </div>
