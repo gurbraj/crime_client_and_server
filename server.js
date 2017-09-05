@@ -24,6 +24,7 @@ var mongoose = require('mongoose');
 
 if (process.env.NODE_ENV === 'production') {
   mongoose.connect("mongodb://gnak:hejsan@ds127982.mlab.com:27982/heroku_j0kd36jk")
+  app.use(express.static('crime_front_end/build'));
 } else {
   mongoose.connect('mongodb://localhost:27017/db');
 }
@@ -38,19 +39,6 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   console.log('mongoose up and running')
 });
-
-
-if (process.env.NODE_ENV === 'production') {
-  console.log("wassa")
-  //app.use(express.static(path.join(__dirname, 'crime_front_end/build')));
-  app.use(express.static('crime_front_end/build'));
-//   app.get('/react', function(req, res) {
-//
-//   //res.sendFile(path.join(__dirname, 'crime_front_end/build'));
-// });
-
-
-}
 
 //set up socket
 const server = app.listen(app.get('port'), function () {
@@ -103,7 +91,6 @@ app.get('/contacts', (req, res) => {
 app.post('/contacts/new', (req,res) => {
   let contactHash = {phone_number: req.body.phone_number};
   let contact = new Contact(contactHash);
-  console.log(contactHash,contact)
   contact.save((err, contact) => {
     if (err) {
       console.log(err)
@@ -164,11 +151,6 @@ app.post("/sms", (req, res) => {
 //end chat end points
 
 
-
-app.get("/testing", function (req, res) {
-  res.set('Content-Type', 'application/json');
-  res.json({message :"tis comes from the node server"})
-})
 
 app.get("/crime", function (req, res) {
   res.set('Content-Type', 'application/json');
@@ -262,9 +244,3 @@ app.get("/crime_yearly/", function(req, res) {
 
   })
 })
-
-
-
-// app.listen(app.get('port'), function () {
-//   console.log("Listening on" +  app.get('port') )
-// })
